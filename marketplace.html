@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParentsClique - Marketplace</title>
+    <style>
+      :root {
+        --bg: #faf8f3;
+        --card: #ffffff;
+        --text: #2e2e2e;
+        --muted: #6a665f;
+        --line: #e6e2d9;
+        --sage: #7a9b8c;
+        --sage-dark: #678574;
+        --sage-soft: #eef4f0;
+        --gold: #c9a24d;
+        --gold-soft: #f6edd8;
+        --shadow: 0 10px 24px rgba(46, 46, 46, 0.07);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(180deg, #fcfaf6 0%, #f6f1e9 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(250, 248, 243, 0.94);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(230, 226, 217, 0.95);
+      }
+
+      .nav {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 14px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(145deg, var(--sage) 0%, var(--gold) 100%);
+        color: white;
+        font-size: 17px;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .nav-links a.active {
+        color: var(--sage-dark);
+        font-weight: 700;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .search {
+        width: 230px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 11px 14px;
+        background: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--sage-soft);
+        color: var(--sage-dark);
+        font-weight: 700;
+        border: 1px solid rgba(122, 155, 140, 0.18);
+      }
+
+      .page {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 28px 22px 80px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f7f4ee 100%);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+        padding: 34px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .hero-text h1 {
+        margin: 0;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 42px;
+        line-height: 1.08;
+      }
+
+      .hero-text p {
+        margin: 14px 0 0;
+        max-width: 680px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 16px;
+      }
+
+      .hero-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .tag {
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: #8a6a20;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .hero-side {
+        min-width: 240px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 20px;
+      }
+
+      .hero-side small {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+
+      .hero-side strong {
+        display: block;
+        font-size: 22px;
+        margin-bottom: 6px;
+      }
+
+      .hero-side span {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 22px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 86px;
+      }
+
+      .filters,
+      .quick-actions,
+      .section-box,
+      .listing-card {
+        padding: 22px;
+      }
+
+      .section-title {
+        margin: 0 0 14px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .filter-group {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .filter-chip,
+      .filter-select,
+      .action-btn,
+      .primary-btn {
+        border-radius: 16px;
+        font-size: 14px;
+      }
+
+      .filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 14px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: #47433d;
+      }
+
+      .filter-chip.active {
+        background: var(--sage-soft);
+        border-color: rgba(122, 155, 140, 0.18);
+        color: var(--sage-dark);
+        font-weight: 700;
+      }
+
+      .filter-select {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: white;
+        padding: 12px 14px;
+        outline: none;
+      }
+
+      .primary-btn {
+        width: 100%;
+        border: none;
+        background: var(--sage);
+        color: white;
+        padding: 13px 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .primary-btn:hover {
+        background: var(--sage-dark);
+      }
+
+      .action-btn {
+        border: 1px solid var(--line);
+        background: #fff;
+        color: #4c4942;
+        padding: 10px 14px;
+      }
+
+      .quick-actions {
+        margin-top: 18px;
+      }
+
+      .quick-actions p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .market-main {
+        display: grid;
+        gap: 18px;
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding: 20px 22px;
+      }
+
+      .toolbar strong {
+        font-size: 18px;
+      }
+
+      .toolbar span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .toolbar-controls {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .listings {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .listing-image {
+        height: 180px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #edf3ef 0%, #f6edd8 100%);
+        border: 1px solid #ece6da;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7a6e56;
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 18px;
+      }
+
+      .listing-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .listing-card h3 {
+        margin: 0;
+        font-size: 19px;
+      }
+
+      .listing-meta {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .price {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--sage-dark);
+      }
+
+      .label {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: var(--sage-soft);
+        color: var(--sage-dark);
+        font-size: 12px;
+        font-weight: 700;
+        margin-top: 12px;
+      }
+
+      .listing-body {
+        margin-top: 14px;
+        color: #3f3c37;
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .listing-footer {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid #f0ece5;
+      }
+
+      .subtle {
+        color: var(--muted);
+      }
+
+      @media (max-width: 980px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+
+        .listings {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+
+        .nav-links {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .search {
+          width: 100%;
+          max-width: 280px;
+        }
+
+        .hero-text h1 {
+          font-size: 34px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .page {
+          padding: 18px 14px 60px;
+        }
+
+        .hero,
+        .filters,
+        .quick-actions,
+        .section-box,
+        .listing-card,
+        .toolbar {
+          padding: 18px;
+        }
+
+        .hero-text h1 {
+          font-size: 30px;
+        }
+
+        .nav-actions {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .search {
+          width: calc(100% - 54px);
+        }
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="nav">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">P</span>
+          <span>ParentsClique</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="community.html">Community</a>
+          <a class="active" href="marketplace.html">Marketplace</a>
+          <a href="account.html">Account</a>
+        </nav>
+
+        <div class="nav-actions">
+          <input class="search" type="text" placeholder="Search items, cities, categories..." />
+          <div class="avatar">RS</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Marketplace</h1>
+          <p>
+            A trusted place for parents to give away or sell children’s items with more ease, care, and connection.
+            Browse by city, category, or listing type inside the ParentsClique community.
+          </p>
+          <div class="hero-tags">
+            <span class="tag">Give away</span>
+            <span class="tag">Sell items</span>
+            <span class="tag">City-based browsing</span>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <small>Marketplace summary</small>
+          <strong>24 active listings</strong>
+          <span>Items shared by parents across cities, with a focus on practical family needs and trusted exchanges.</span>
+        </div>
+      </section>
+
+      <section class="layout">
+        <aside class="sidebar">
+          <div class="card filters">
+            <h2 class="section-title">Filters</h2>
+
+            <div class="filter-group">
+              <button class="filter-chip active" type="button">All Listings</button>
+              <button class="filter-chip" type="button">Give Away</button>
+              <button class="filter-chip" type="button">For Sale</button>
+            </div>
+
+            <div class="filter-group">
+              <select class="filter-select">
+                <option>All Cities</option>
+                <option>Washington, DC</option>
+                <option>Austin, TX</option>
+                <option>Seattle, WA</option>
+                <option>Boston, MA</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <select class="filter-select">
+                <option>All Categories</option>
+                <option>Clothes</option>
+                <option>Toys</option>
+                <option>Books</option>
+                <option>Baby Gear</option>
+                <option>Furniture</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <select class="filter-select">
+                <option>Condition</option>
+                <option>Like New</option>
+                <option>Gently Used</option>
+                <option>Used</option>
+              </select>
+            </div>
+
+            <button class="primary-btn" type="button">Create Listing</button>
+          </div>
+
+          <div class="card quick-actions">
+            <h2 class="section-title">Quick notes</h2>
+            <p>
+              Keep listings clear and kind. Include useful details like condition, size, pickup location, and price if
+              selling.
+            </p>
+            <button class="action-btn" type="button">View Guidelines</button>
+          </div>
+        </aside>
+
+        <section class="market-main">
+          <div class="card toolbar">
+            <div>
+              <strong>Browse listings</strong>
+              <span>See what parents are sharing in the community right now.</span>
+            </div>
+
+            <div class="toolbar-controls">
+              <select class="filter-select">
+                <option>Newest First</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="listings">
+            <article class="card listing-card">
+              <div class="listing-image">Wooden Toy Kitchen Set</div>
+              <div class="listing-top">
+                <div>
+                  <h3>Wooden toy kitchen set</h3>
+                  <div class="listing-meta">Washington, DC • Posted by Ana Lewis</div>
+                </div>
+                <div class="price">$35</div>
+              </div>
+              <div class="label">For Sale • Gently Used</div>
+              <div class="listing-body">
+                Well-loved but still in great condition. Includes pots, pans, and wooden food pieces. Pickup in NW DC.
+              </div>
+              <div class="listing-footer">
+                <button class="action-btn" type="button">View Details</button>
+                <button class="action-btn" type="button">Message Parent</button>
+                <button class="action-btn" type="button">Save</button>
+              </div>
+            </article>
+
+            <article class="card listing-card">
+              <div class="listing-image">Toddler Clothes Bundle</div>
+              <div class="listing-top">
+                <div>
+                  <h3>Toddler clothes bundle</h3>
+                  <div class="listing-meta">Seattle, WA • Posted by Maya Rivera</div>
+                </div>
+                <div class="price">Free</div>
+              </div>
+              <div class="label">Give Away • 2T–3T</div>
+              <div class="listing-body">
+                Two bags of toddler clothes in good condition. Mostly everyday basics, jackets, and pajamas. Local pickup only.
+              </div>
+              <div class="listing-footer">
+                <button class="action-btn" type="button">View Details</button>
+                <button class="action-btn" type="button">I’m Interested</button>
+                <button class="action-btn" type="button">Save</button>
+              </div>
+            </article>
+
+            <article class="card listing-card">
+              <div class="listing-image">Children’s Book Bundle</div>
+              <div class="listing-top">
+                <div>
+                  <h3>Children’s book bundle</h3>
+                  <div class="listing-meta">Boston, MA • Posted by Emily Davis</div>
+                </div>
+                <div class="price">$12</div>
+              </div>
+              <div class="label">For Sale • Good Condition</div>
+              <div class="listing-body">
+                Mixed picture books and beginner readers for ages 3–6. Great starter collection for bedtime reading.
+              </div>
+              <div class="listing-footer">
+                <button class="action-btn" type="button">View Details</button>
+                <button class="action-btn" type="button">Message Parent</button>
+                <button class="action-btn" type="button">Save</button>
+              </div>
+            </article>
+
+            <article class="card listing-card">
+              <div class="listing-image">Stroller with Rain Cover</div>
+              <div class="listing-top">
+                <div>
+                  <h3>Compact stroller with rain cover</h3>
+                  <div class="listing-meta">Austin, TX • Posted by Nora Thomas</div>
+                </div>
+                <div class="price">$60</div>
+              </div>
+              <div class="label">For Sale • Baby Gear</div>
+              <div class="listing-body">
+                Lightweight stroller that folds easily for travel or daily errands. Includes cup holder and rain cover.
+              </div>
+              <div class="listing-footer">
+                <button class="action-btn" type="button">View Details</button>
+                <button class="action-btn" type="button">Message Parent</button>
+                <button class="action-btn" type="button">Save</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
