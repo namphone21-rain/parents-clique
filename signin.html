@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParentsClique - Sign In</title>
+    <style>
+      :root {
+        --bg: #f7f4ef;
+        --card: #ffffff;
+        --text: #2f2f2f;
+        --muted: #6f6b64;
+        --line: #e8e1d7;
+        --accent: #7d9a89;
+        --accent-dark: #698271;
+        --accent-soft: #eef4f0;
+        --shadow: 0 12px 30px rgba(46, 46, 46, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(180deg, #fbf9f5 0%, #f4efe8 100%);
+        color: var(--text);
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 18px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1040px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: var(--card);
+        border: 1px solid rgba(125, 154, 137, 0.15);
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .left {
+        background: linear-gradient(160deg, #7d9a89 0%, #91ac9d 100%);
+        color: white;
+        padding: 56px 48px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        font-size: 13px;
+        letter-spacing: 0.2px;
+        margin-bottom: 28px;
+      }
+
+      .brand {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 42px;
+        line-height: 1.05;
+        margin: 0 0 16px;
+      }
+
+      .intro {
+        max-width: 430px;
+        font-size: 17px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.92);
+        margin: 0 0 34px;
+      }
+
+      .feature-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .feature {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 18px;
+        padding: 14px 16px;
+      }
+
+      .feature-icon {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .feature strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+
+      .feature span {
+        font-size: 14px;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .right {
+        padding: 48px 42px;
+        background: #fffdf9;
+        display: flex;
+        align-items: center;
+      }
+
+      .content {
+        width: 100%;
+      }
+
+      .form-header h1 {
+        margin: 0;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 34px;
+        line-height: 1.15;
+        color: #2f2f2f;
+      }
+
+      .form-header p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      form {
+        margin-top: 28px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #37342f;
+      }
+
+      input {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--text);
+        border-radius: 14px;
+        padding: 14px 15px;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(125, 154, 137, 0.13);
+      }
+
+      .actions-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin: 8px 0 24px;
+        flex-wrap: wrap;
+      }
+
+      .remember {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #4c4a45;
+        font-size: 14px;
+      }
+
+      .remember input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+        box-shadow: none;
+      }
+
+      .forgot {
+        color: var(--accent-dark);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .forgot:hover {
+        text-decoration: underline;
+      }
+
+      .button {
+        width: 100%;
+        border: none;
+        border-radius: 16px;
+        background: var(--accent);
+        color: white;
+        padding: 15px 18px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.15s ease, background 0.2s ease;
+      }
+
+      .button:hover {
+        background: var(--accent-dark);
+        transform: translateY(-1px);
+      }
+
+      .signup {
+        margin-top: 18px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .signup a,
+      .back-home {
+        color: var(--accent-dark);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .signup a:hover,
+      .back-home:hover {
+        text-decoration: underline;
+      }
+
+      .back-row {
+        margin-top: 18px;
+        text-align: center;
+      }
+
+      @media (max-width: 920px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+
+        .left,
+        .right {
+          padding: 34px 24px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          padding: 18px;
+        }
+
+        .container {
+          border-radius: 22px;
+        }
+
+        .brand {
+          font-size: 34px;
+        }
+
+        .form-header h1 {
+          font-size: 28px;
+        }
+
+        .actions-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <div class="container">
+        <section class="left">
+          <div class="badge">Welcome back to ParentsClique</div>
+          <h2 class="brand">Sign in to your trusted parent community</h2>
+          <p class="intro">
+            Connect with parents, browse the marketplace, and stay part of a thoughtful network built on trust.
+          </p>
+
+          <div class="feature-list">
+            <div class="feature">
+              <div class="feature-icon">💬</div>
+              <div>
+                <strong>Community conversations</strong>
+                <span>Read updates, ask questions, and share support with other parents.</span>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">🧸</div>
+              <div>
+                <strong>Marketplace access</strong>
+                <span>Give away or sell children’s items in a trusted parent-centered space.</span>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">🌎</div>
+              <div>
+                <strong>Across cities</strong>
+                <span>Stay connected with families and parent communities wherever life moves.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="right">
+          <div class="content">
+            <div class="form-header">
+              <h1>Sign In</h1>
+              <p>Welcome back. Enter your email and password to access your ParentsClique account.</p>
+            </div>
+
+            <form>
+              <div class="field">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" placeholder="Enter your email" />
+              </div>
+
+              <div class="field">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Enter your password" />
+              </div>
+
+              <div class="actions-row">
+                <label class="remember" for="rememberMe">
+                  <input id="rememberMe" type="checkbox" />
+                  <span>Remember me</span>
+                </label>
+
+                <a class="forgot" href="#">Forgot password?</a>
+              </div>
+
+              <button class="button" type="submit">Sign In</button>
+            </form>
+
+            <div class="signup">
+              Don’t have an account yet? <a href="signup.html">Create Account</a>
+            </div>
+
+            <div class="back-row">
+              <a class="back-home" href="index.html">Back to Home</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
