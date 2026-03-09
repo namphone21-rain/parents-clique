@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParentsClique - Account</title>
+    <style>
+      :root {
+        --bg: #faf8f3;
+        --card: #ffffff;
+        --text: #2e2e2e;
+        --muted: #6a665f;
+        --line: #e6e2d9;
+        --sage: #7a9b8c;
+        --sage-dark: #678574;
+        --sage-soft: #eef4f0;
+        --gold: #c9a24d;
+        --gold-soft: #f6edd8;
+        --shadow: 0 10px 24px rgba(46, 46, 46, 0.07);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(180deg, #fcfaf6 0%, #f6f1e9 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(250, 248, 243, 0.94);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(230, 226, 217, 0.95);
+      }
+
+      .nav {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 14px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(145deg, var(--sage) 0%, var(--gold) 100%);
+        color: white;
+        font-size: 17px;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .nav-links a.active {
+        color: var(--sage-dark);
+        font-weight: 700;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--sage-soft);
+        color: var(--sage-dark);
+        font-weight: 700;
+        border: 1px solid rgba(122, 155, 140, 0.18);
+      }
+
+      .page {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 28px 22px 80px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f7f4ee 100%);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+        padding: 34px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .hero-left {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .hero-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(145deg, var(--sage-soft) 0%, #f8f2e4 100%);
+        color: var(--sage-dark);
+        font-size: 32px;
+        font-weight: 800;
+        border: 1px solid rgba(122, 155, 140, 0.18);
+      }
+
+      .hero-text h1 {
+        margin: 0;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 42px;
+        line-height: 1.08;
+      }
+
+      .hero-text p {
+        margin: 10px 0 0;
+        max-width: 700px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 16px;
+      }
+
+      .hero-meta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .tag {
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: var(--sage-soft);
+        color: var(--sage-dark);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn,
+      .btn-soft {
+        border: none;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .btn {
+        background: var(--sage);
+        color: white;
+      }
+
+      .btn:hover {
+        background: var(--sage-dark);
+      }
+
+      .btn-soft {
+        background: white;
+        color: var(--text);
+        border: 1px solid var(--line);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 22px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 86px;
+      }
+
+      .menu,
+      .quick-card,
+      .section-box,
+      .stats-card,
+      .listing-preview {
+        padding: 22px;
+      }
+
+      .section-label {
+        margin: 0 0 14px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .menu-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .menu-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        color: #47433d;
+      }
+
+      .menu-link.active,
+      .menu-link:hover {
+        background: #fbf9f5;
+      }
+
+      .menu-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: var(--sage-soft);
+        color: var(--sage-dark);
+        font-size: 16px;
+      }
+
+      .quick-card {
+        margin-top: 18px;
+      }
+
+      .quick-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .main {
+        display: grid;
+        gap: 18px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .stats-card strong {
+        display: block;
+        font-size: 30px;
+        font-weight: 800;
+        margin-bottom: 6px;
+        color: var(--sage-dark);
+      }
+
+      .stats-card span {
+        display: block;
+        font-size: 15px;
+        color: #3f3c37;
+        font-weight: 600;
+      }
+
+      .stats-card small {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .section-box h2 {
+        margin: 0;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      .section-box p.header-text {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 22px;
+      }
+
+      .info-item {
+        padding: 18px;
+        border: 1px solid #f0ece5;
+        border-radius: 18px;
+        background: #fcfaf6;
+      }
+
+      .info-item small {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 8px;
+      }
+
+      .info-item strong {
+        display: block;
+        font-size: 16px;
+      }
+
+      .info-item span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .listing-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .listing-image {
+        height: 150px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #edf3ef 0%, #f6edd8 100%);
+        border: 1px solid #ece6da;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7a6e56;
+        font-weight: 700;
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
+
+      .listing-preview h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .listing-preview .meta {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: #8a6a20;
+        font-size: 12px;
+        font-weight: 700;
+        margin-top: 12px;
+      }
+
+      .listing-preview p {
+        margin: 14px 0 0;
+        color: #3f3c37;
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .listing-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .mini-btn {
+        border: 1px solid var(--line);
+        background: white;
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #4c4942;
+      }
+
+      .activity-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .activity-item {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 16px 0;
+        border-top: 1px solid #f0ece5;
+      }
+
+      .activity-item:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: var(--sage-soft);
+        color: var(--sage-dark);
+        flex-shrink: 0;
+      }
+
+      .activity-item strong {
+        display: block;
+        font-size: 15px;
+      }
+
+      .activity-item span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 980px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+
+        .stats-grid,
+        .listing-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+
+        .nav-links {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .hero-text h1 {
+          font-size: 34px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .page {
+          padding: 18px 14px 60px;
+        }
+
+        .hero,
+        .menu,
+        .quick-card,
+        .section-box,
+        .stats-card,
+        .listing-preview {
+          padding: 18px;
+        }
+
+        .hero-text h1 {
+          font-size: 30px;
+        }
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="nav">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">P</span>
+          <span>ParentsClique</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="community.html">Community</a>
+          <a href="marketplace.html">Marketplace</a>
+          <a class="active" href="account.html">Account</a>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="avatar">RS</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <div class="hero-left">
+          <div class="hero-avatar">RS</div>
+          <div class="hero-text">
+            <h1>Rain Surasorn</h1>
+            <p>
+              Parent community builder and trusted member of ParentsClique. This page gives a simple overview of your
+              profile, recent activity, and marketplace listings.
+            </p>
+            <div class="hero-meta">
+              <span class="tag">Washington, DC</span>
+              <span class="tag">Founding member</span>
+              <span class="tag">Trusted network</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn" href="account-settings.html">Edit Settings</a>
+          <a class="btn-soft" href="marketplace.html">View Marketplace</a>
+        </div>
+      </section>
+
+      <section class="layout">
+        <aside class="sidebar">
+          <div class="card menu">
+            <h2 class="section-label">Account menu</h2>
+            <div class="menu-links">
+              <a class="menu-link active" href="account.html">
+                <span class="menu-icon">👤</span>
+                <span>Profile</span>
+              </a>
+              <a class="menu-link" href="account-settings.html">
+                <span class="menu-icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+              <a class="menu-link" href="#">
+                <span class="menu-icon">🧺</span>
+                <span>My Listings</span>
+              </a>
+              <a class="menu-link" href="community.html">
+                <span class="menu-icon">💬</span>
+                <span>My Activity</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="card quick-card">
+            <h2 class="section-label">Quick note</h2>
+            <p>
+              This main account page works well as a member dashboard. Later, Firebase can fill it with real user data,
+              posts, saved items, and listing history.
+            </p>
+          </div>
+        </aside>
+
+        <section class="main">
+          <div class="stats-grid">
+            <div class="card stats-card">
+              <strong>12</strong>
+              <span>Community posts</span>
+              <small>Questions, updates, and thoughtful conversations shared with other parents.</small>
+            </div>
+            <div class="card stats-card">
+              <strong>4</strong>
+              <span>Marketplace listings</span>
+              <small>Items you are giving away or selling inside the ParentsClique marketplace.</small>
+            </div>
+            <div class="card stats-card">
+              <strong>28</strong>
+              <span>Connections made</span>
+              <small>Parents who interacted with your posts, listings, or shared city conversations.</small>
+            </div>
+          </div>
+
+          <div class="card section-box">
+            <h2>Profile overview</h2>
+            <p class="header-text">
+              A quick summary of the information other parents may see on your account.
+            </p>
+
+            <div class="info-grid">
+              <div class="info-item">
+                <small>Display name</small>
+                <strong>Rain Surasorn</strong>
+                <span>Your public account name inside the ParentsClique community.</span>
+              </div>
+              <div class="info-item">
+                <small>City</small>
+                <strong>Washington, DC</strong>
+                <span>Helps parents connect through local community conversations and listings.</span>
+              </div>
+              <div class="info-item">
+                <small>Email</small>
+                <strong>rain@example.com</strong>
+                <span>Your account contact email for sign-in and community notifications.</span>
+              </div>
+              <div class="info-item">
+                <small>About</small>
+                <strong>Thoughtful parent community builder</strong>
+                <span>Interested in creating a trusted and warm network for parents across cities.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card section-box">
+            <h2>My recent listings</h2>
+            <p class="header-text">
+              A preview of your current marketplace items. Later this can link to a dedicated My Listings page.
+            </p>
+
+            <div class="listing-grid">
+              <article class="card listing-preview">
+                <div class="listing-image">Toddler Book Set</div>
+                <h3>Toddler book set</h3>
+                <div class="meta">Washington, DC • Posted 2 days ago</div>
+                <div class="pill">For Sale • $12</div>
+                <p>Picture books and bedtime favorites for ages 2–5 in good condition.</p>
+                <div class="listing-actions">
+                  <button class="mini-btn" type="button">Edit</button>
+                  <button class="mini-btn" type="button">View</button>
+                </div>
+              </article>
+
+              <article class="card listing-preview">
+                <div class="listing-image">Baby Clothes Bundle</div>
+                <h3>Baby clothes bundle</h3>
+                <div class="meta">Washington, DC • Posted 5 days ago</div>
+                <div class="pill">Give Away • Free</div>
+                <p>Soft newborn and 0–3 month clothing in clean, gently used condition.</p>
+                <div class="listing-actions">
+                  <button class="mini-btn" type="button">Edit</button>
+                  <button class="mini-btn" type="button">View</button>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="card section-box">
+            <h2>Recent activity</h2>
+            <p class="header-text">
+              A simple activity feed to help members keep track of their recent posts and interactions.
+            </p>
+
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon">💬</div>
+                <div>
+                  <strong>You posted in Community</strong>
+                  <span>Asked for local recommendations for family-friendly weekend spots in Washington, DC.</span>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-icon">🧺</div>
+                <div>
+                  <strong>You created a new listing</strong>
+                  <span>Added a toddler book set to the marketplace for sale.</span>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-icon">💛</div>
+                <div>
+                  <strong>You received support on a post</strong>
+                  <span>Several parents responded to your recent community question and shared ideas.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
